@@ -1,0 +1,67 @@
+<div class="jumbotron text-center">
+  <h1 class="display-5">Corona Virus Disease (COVID-19) Tracker by Country</h1>
+  <p class="lead">Coronavirus disease 2019 (COVID-19) is a contagious respiratory and vascular (blood vessel) disease
+    caused by severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2), a specific type of coronavirus responsible
+    for an ongoing pandemic.</p>
+</div>
+
+<div class="container mb-5">
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="mx-auto">
+        <div class="corm-group col-lg-5 mx-auto">
+          <label for="country">Select Country</label>
+          <select name="country" id="country" class="form-control" #input (change)="updateValues(input.value)">
+            <option value="{{country}}" *ngFor='let country of countries'>
+              {{country}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<app-dashboard-card
+[totalActive]="totalActive"
+[totalConfirmed]="totalConfirmed"
+[totalDeaths]="totalDeaths"
+[totalRecovered]="totalRecovered"
+>
+</app-dashboard-card>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-12">
+      <h4 class="text-center mb-3 text-info">{{selectedCountry}}</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <table class="table table-sm table-striped">
+        <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Date</th>
+            <th>Cases</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let case of selectedCountryData; index as i">
+            <td>{{i+1}}</td>
+            <td>{{case.date | date}}</td>
+            <td>{{case.cases}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-8">
+      <google-chart [type]="chart.LineChart" [data]="dataTable" [height]="chart.height" [options]="chart.options"></google-chart>
+    </div>
+
+  </div>
+</div>
