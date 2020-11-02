@@ -24,12 +24,8 @@
   </div>
 </div>
 
-<app-dashboard-card
-[totalActive]="totalActive"
-[totalConfirmed]="totalConfirmed"
-[totalDeaths]="totalDeaths"
-[totalRecovered]="totalRecovered"
->
+<app-dashboard-card [totalActive]="totalActive" [totalConfirmed]="totalConfirmed" [totalDeaths]="totalDeaths"
+  [totalRecovered]="totalRecovered">
 </app-dashboard-card>
 
 <div class="container mt-5">
@@ -39,6 +35,10 @@
     </div>
   </div>
   <div class="row">
+    <div class="col-md-8">
+      <google-chart [type]="chart.LineChart" [data]="dataTable" [height]="chart.height" [options]="chart.options">
+      </google-chart>
+    </div>
     <div class="col-md-4">
       <table class="table table-sm table-striped">
         <thead>
@@ -50,18 +50,16 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let case of selectedCountryData; index as i">
-            <td>{{i+1}}</td>
-            <td>{{case.date | date}}</td>
-            <td>{{case.cases}}</td>
-          </tr>
+          <ng-container *ngFor="let case of selectedCountryData; index as i;">
+            <tr *ngIf="case.cases > 0">
+              <td>{{i+1}}</td>
+              <td>{{case.date | date}}</td>
+              <td>{{case.cases}}</td>
+            </tr>
+          </ng-container>
+          
         </tbody>
       </table>
     </div>
-
-    <div class="col-md-8">
-      <google-chart [type]="chart.LineChart" [data]="dataTable" [height]="chart.height" [options]="chart.options"></google-chart>
-    </div>
-
   </div>
 </div>

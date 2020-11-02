@@ -16,6 +16,7 @@
 
 
 <h1 class="text-center text-info mb-4">World Statistics</h1>
+<h5 class="text-center text-info mb-4">Last updated: {{statDate}}</h5>
 
 <app-dashboard-card [totalActive]="totalActive" [totalConfirmed]="totalConfirmed" [totalDeaths]="totalDeaths"
     [totalRecovered]="totalRecovered">
@@ -54,6 +55,42 @@
 
         <div class="col-md-6">
             <google-chart [type]="chart.ColumnChart" [data]="datatable" [height]="chart.height" [options]="chart.options"></google-chart>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="text-info mb-3">Global Data</h4>
+            <div class="form-group">
+                <input type="text" name="query" #query placeholder="Enter keyword here to search" class="col-md-4 form-control" (keyup)="filterTable(query)">
+            </div>
+            
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>S.No.</th>
+                        <th>Country</th>
+                        <th>Confirmed</th>
+                        <th>Death</th>
+                        <th>Recovered</th>
+                        <th>Active</th>
+                        <th>Death % <span class="text-danger" title="death * 100 / confirmed">(?)</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let record of filteredData; index as i">
+                        <td>{{ i+1 }}</td>
+                        <td>{{ record.country }}</td>
+                        <td>{{ record.confirmed | number }}</td>
+                        <td>{{ record.deaths | number }}</td>
+                        <td>{{ record.recovered | number }}</td>
+                        <td>{{ record.active | number }}</td>
+                        <td>{{ (record.deaths * 100 / record.confirmed) | number }}%</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

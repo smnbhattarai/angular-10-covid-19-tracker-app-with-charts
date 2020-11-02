@@ -79,9 +79,9 @@ export class DataServiceService {
     );
   }
 
-  getYesterdaysDate() {
+  getYesterdaysDate(back = 2) {
     let date = new Date();
-    date.setDate(date.getDate() - 1);
+    date.setDate(date.getDate() - back);
     let year = date.getFullYear();
     let month = date.getMonth() + 1;
     let day = date.getDate();

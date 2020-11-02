@@ -9,12 +9,15 @@ import { DataServiceService } from 'src/app/services/data-service.service';
 })
 export class HomeComponent implements OnInit {
 
+  statDate: string;
   totalActive = 0;
   totalConfirmed = 0;
   totalDeaths = 0;
   totalRecovered = 0;
   datatable = [];
   globalData: GlobalDataSummary[];
+  tableData: GlobalDataSummary[];
+  filteredData: GlobalDataSummary[];
   chart = {
     PieChart: "PieChart",
     ColumnChart: "ColumnChart",
@@ -36,6 +39,11 @@ export class HomeComponent implements OnInit {
       {
         next: (result) => {
           this.globalData = result;
+
+          let dt = result;
+          dt.pop();
+          this.tableData = this.filteredData = dt;
+
           result.forEach(cs => {
             if(!Number.isNaN(cs.confirmed)) {
               this.totalActive += cs.active;
@@ -49,6 +57,9 @@ export class HomeComponent implements OnInit {
         }
       }
     );
+
+      this.statDate = this.dataService.getYesterdaysDate();
+
   }
 
   initChart(caseType: string) {
@@ -92,6 +103,13 @@ export class HomeComponent implements OnInit {
 
   updateChart(input: HTMLInputElement) {
     this.initChart(input.value);
+  }
+
+  filterTable(query) {
+    let q = (query.value).toLowerCase();
+
+    this.filteredData = (q) ?
+      this.globalData.filter(c => c.country.toLowerCase().includes(q)) : this.globalData;
   }
 
 }
