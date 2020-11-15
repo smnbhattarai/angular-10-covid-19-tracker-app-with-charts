@@ -51,10 +51,10 @@
 
         <tbody>
           <ng-container *ngFor="let case of selectedCountryData; index as i;">
-            <tr *ngIf="case.cases > 0">
+            <tr>
               <td>{{i+1}}</td>
               <td>{{case.date | date}}</td>
-              <td>{{case.cases}}</td>
+              <td>{{case.cases | number }}</td>
             </tr>
           </ng-container>
           

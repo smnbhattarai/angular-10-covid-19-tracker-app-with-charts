@@ -70,28 +70,28 @@ export class HomeComponent implements OnInit {
       let value: number;
 
       if(caseType === 'confirmed') {
-        if(cs.confirmed > 170000) {
+        if(cs.confirmed > 200000) {
           value = cs.confirmed;
           this.datatable.push([cs.country, value]);
         }
       }
         
       if(caseType === 'active') {
-        if(cs.active > 170000) {
+        if(cs.active > 200000) {
           value = cs.active;
           this.datatable.push([cs.country, value]);
         }
       }
         
       if(caseType === 'recovered') {
-        if(cs.recovered > 170000) {
+        if(cs.recovered > 200000) {
           value = cs.recovered;
           this.datatable.push([cs.country, value]);
         }
       }
         
       if(caseType === 'deaths') {
-        if(cs.deaths > 1000) {
+        if(cs.deaths > 35000) {
           value = cs.deaths;
           this.datatable.push([cs.country, value]);
         }
